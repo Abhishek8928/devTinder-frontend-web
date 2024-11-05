@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+    color:#fff;
+}
+body[theme="dark"]{
+    background-color: #000000;
+}
+
+
+body[theme="light"]{
+    background-color: #fff;
+}
+
+.secondary{
+    color:rgb(9, 185, 76);
+}
