@@ -5,6 +5,8 @@ import Connection from "../components/Connection";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 import Feed from "../components/Feed";
+import Profile from "../components/Profile";
+import Notification from "../components/Notification";
 
 // create a configuration for browser router to render the stuff accordding to path -> sap(single page application)
 const appRouter = createBrowserRouter([
@@ -19,6 +21,12 @@ const appRouter = createBrowserRouter([
       {
         path: "/feed",
         element: <Feed />,
+        children: [
+          {
+            path: "/feed/notification",
+            element:<Notification />,
+          },
+        ],
       },
       {
         path: "/login",
@@ -26,11 +34,19 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: "",
       },
       {
         path: "/connection",
         element: <Connection />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "*",
+        element: <h1>not found any child route</h1>,
       },
     ],
   },

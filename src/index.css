@@ -2,18 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+    font-family: satoshi;
+    src: url(./font/satoshi.ttf);
+}
+@font-face {
+    font-family: neue;
+    src: url(./font/neue.woff);
+}
 *{
     color:#fff;
 }
-body[theme="dark"]{
-    background-color: #000000;
+input:focus{
+    outline: none;
+    box-shadow: 0 0 0 1px #10a37f
 }
-
-
-body[theme="light"]{
-    background-color: #fff;
+.font-neue{
+    font-family: neue;
 }
-
-.secondary{
-    color:rgb(9, 185, 76);
+.font-satoshi{
+    font-family: satoshi;
 }
