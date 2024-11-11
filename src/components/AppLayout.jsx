@@ -33,7 +33,7 @@ function AppLayout() {
 
   return (
     <>
-      <div className="w-full bg-[#050505]  h-screen">
+      <div className="w-full py-[4vh] px-[4vw] bg-[#050505]  h-screen">
         <Navbar />
         {/* outlet will be filled  with the component according to the path */}
         <Outlet />

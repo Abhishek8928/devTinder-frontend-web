@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../Utils/axiosInstances";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addNotificationList } from "../Utils/redux/notification";
 
 function Notification() {
-  const [notificationsList, setNotificationList] = useState([]);
-  const navigate = useNavigate()
+  const notificationList = useSelector(store => store.notification);
+  const dispatchHandler = useDispatch()
+  const navigateHandler = useNavigate()
 
 
   function closeNotificationHandler(){
-    navigate('/feed')
+    navigateHandler('/feed')
   }
 
   async function getNotificationList() {
     const responses = await axiosInstance.get("/api/v1/notifications");
-    setNotificationList(responses.data.data.connectionRequestInfo);
+    dispatchHandler(addNotificationList(responses?.data?.data?.connectionRequestInfo))
   }
 
 
@@ -22,22 +25,29 @@ function Notification() {
     getNotificationList();
   }, []);
 
-  return notificationsList.length === 0 ? (
-    <h1>fetching</h1>
-  ) : (
+  if(!notificationList) null;
+  if(!notificationList.length){
+    return <h3 className="font-satoshi text-white font-medium b">
+    Empty Notification
+  </h3>
+  }
+
+  return notificationList && (
     <>
-      <div className="absolute top-[12%] z-[30] right-[2%] rounded-lg bg-[#181818] w-1/3 ">
+      <div className="absolute top-[12%] z-[30] right-[2%] rounded-lg bg-[#181818] w-1/4 ">
         <div className="border-b-[1px] flex justify-between items-center border-b-[#282828]  p-[1vw] ">
-          <h3 className="font-satoshi font-medium b">
+          <h3 className="font-satoshi text-white font-medium b">
             Notifications
           </h3>
 
-          <i onClick={closeNotificationHandler} className="ri-close-fill"></i>
+          <i onClick={closeNotificationHandler} className="ri-close-fill text-white"></i>
         </div>
-        {notificationsList.length &&
-          notificationsList.map((item, index) => (
+        <div className="p-[1vw] max-w-lg">
+
+        {notificationList.map((item, index) => (
             <NotificationCard key={index} {...item} />
           ))}
+        </div>
       </div>
     </>
   );
@@ -46,10 +56,10 @@ function Notification() {
 function NotificationCard({ fromUserId, toUserId, status }) {
   return (
     <>
-      <div className="p-[1.6vw] border-b-[1px] border-b-[#282828] ">
-        <div className="profile-info flex gap-[1.4vw]">
+      <div className="p-[0.6vw] border-b-[1px] border-b-[#282828] ">
+        <div className="profile-info flex gap-[1.4vw] ">
           <img
-            className="w-10 h-10 rounded-full"
+            className="w-10 h-10 rounded-full object-cover"
             src={
               status === "accepted"
                 ? `${toUserId?.photoUrl} `
@@ -60,7 +70,7 @@ function NotificationCard({ fromUserId, toUserId, status }) {
 
           <div className="w-[80%]">
             <div className="text-info  leading-tight">
-              <small className="text-xs font-medium">
+              <small className="text-xs text-white font-medium">
                 {status === "accepted"
                   ? `${toUserId?.firstName} has accepted your request`
                   : `${fromUserId?.firstName} has interested in you`}
@@ -68,7 +78,7 @@ function NotificationCard({ fromUserId, toUserId, status }) {
               <p className="text-[#616161] text-xs">1 hour ago</p>
             </div>
 
-            {status === "interested" && <ConnectionStatusAction />}
+            
           </div>
         </div>
       </div>
@@ -76,19 +86,6 @@ function NotificationCard({ fromUserId, toUserId, status }) {
   );
 }
 
-function ConnectionStatusAction() {
-  return (
-    <>
-      <div className="flex bg-[#232323] mt-4 p-[1vw] rounded-md w-full gap-[1vw] items-center">
-        <button className="px-4 py-2 bg-primary text-xs rounded-md ">
-          Accepted
-        </button>
-        <button className="text-xs text-red-600 font-medium  rounded-md px-4 py-2 ">
-          Rejected
-        </button>
-      </div>
-    </>
-  );
-}
+
 
 export default Notification;

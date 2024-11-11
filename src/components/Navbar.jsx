@@ -1,12 +1,32 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../Utils/axiosInstances";
+import { removeFeed } from "../Utils/redux/feed";
+import { logoutUser } from "../Utils/redux/user";
+
 
 function Navbar() {
   // i am only subscribed to small part of my redux store that is user slice
   const user = useSelector((store) => store.user);
+  const navigate = useNavigate();
+  const dispatchHandler = useDispatch();
+
+
+  async function logoutHandler(){
+    try{
+      await axiosInstance.post('/api/v1/logout');
+      dispatchHandler(removeFeed())
+      dispatchHandler(logoutUser())
+      navigate('/login');
+    }catch(err){
+      console.log(err);
+    }
+
+
+  }
 
   return (
-    <div className="py-[4vh] px-[4vw] w-full flex ">
+    <div className=" w-full flex ">
       <p className="text-[#F8F8F8]  w-full  leading-none text-sm ">
         <span className="text-hackathoneGreen">devTinder </span>
         - for developer match
@@ -32,6 +52,9 @@ function Navbar() {
                 />
               </Link>
             </li>
+            <li onClick={logoutHandler} className="flex-shrink-0 text-sm text-red-600 cursor-pointer">
+             Logout
+            </li>
           </>
         ) : (
           <>
@@ -40,11 +63,7 @@ function Navbar() {
               Login
             </Link>
           </li>
-          <li>
-            <Link to="/profile" className="text-white text-sm" href="">
-              profile
-            </Link>
-          </li>
+          
           
           </>
         )}

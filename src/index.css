@@ -11,10 +11,7 @@
     font-family: neue;
     src: url(./font/neue.woff);
 }
-*{
-    color:#fff;
-}
-input:focus{
+input:focus,textarea:focus{
     outline: none;
     box-shadow: 0 0 0 1px #10a37f
 }

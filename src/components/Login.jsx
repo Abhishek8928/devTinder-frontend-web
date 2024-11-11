@@ -50,9 +50,9 @@ function Login() {
 
   return (
     <>
-      <div className="w-full  h-screen ">
+      <div className="w-full  h-screen absolute top-0 left-0 ">
         <div className=" w-[80%] md:w-1/2 ml-[4vw]   absolute top-1/2 -translate-y-1/2">
-          <h2 className="text-lg font-neue">Log In</h2>
+          <h2 className="text-lg font-neue text-white">Log In</h2>
           <p className="text-red-600 font-satoshi text-sm  rounded-md">
             {errorMessage}
           </p>
@@ -80,7 +80,7 @@ function Login() {
               }}
             />
 
-            <button className=" w-full md:w-1/2 text-sm  block rounded-md p-2.5 bg-discord">
+            <button className="text-white w-full md:w-1/2 text-sm  block rounded-md p-2.5 bg-discord">
               Login
             </button>
           </form>
@@ -97,7 +97,7 @@ function Login() {
   );
 }
 
-function InputField({ placeholder, labelName, onChangeHandler }) {
+export function InputField({ placeholder, labelName, onChangeHandler }) {
   return (
     <div className="input-wrapper w-full mb-4">
       <label
@@ -110,10 +110,12 @@ function InputField({ placeholder, labelName, onChangeHandler }) {
         onChange={onChangeHandler}
         type="text"
         placeholder={placeholder || ""}
-        className="p-3 text-sm w-full md:w-1/2  bg-primaryDark rounded-md border-none"
+        className="p-3 text-white text-sm w-full md:w-1/2  bg-primaryDark rounded-md border-none"
       />
     </div>
   );
 }
 
 export default Login;
+
+
