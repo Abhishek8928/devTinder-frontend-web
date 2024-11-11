@@ -25,7 +25,7 @@ function Notification() {
     getNotificationList();
   }, []);
 
-  if(!notificationList) null;
+  if(!notificationList)  return null;
   if(!notificationList.length){
     return <h3 className="font-satoshi text-white font-medium b">
     Empty Notification
@@ -44,7 +44,7 @@ function Notification() {
         </div>
         <div className="p-[1vw] max-w-lg">
 
-        {notificationList.map((item, index) => (
+        {notificationList?.map((item, index) => (
             <NotificationCard key={index} {...item} />
           ))}
         </div>
