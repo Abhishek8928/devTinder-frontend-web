@@ -27,7 +27,7 @@ function Notification() {
         err.message ||
         err?.response?.data?.statusText;
     }
-    }
+    
   }
 
 
