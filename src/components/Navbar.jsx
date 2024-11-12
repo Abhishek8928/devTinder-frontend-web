@@ -37,6 +37,11 @@ function Navbar() {
       <ul className="flex gap-4 items-center">
         {user ? (
           <>
+          <li>
+              <Link className="text-white text-sm" to="/feed">
+                Feed
+              </Link>
+            </li>
             <li>
               <Link className="text-white text-sm" to="/feed/notification">
                 Notification

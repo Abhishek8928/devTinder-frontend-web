@@ -78,7 +78,7 @@ function EditProfile(){
               <label className='block text-zinc-400 text-xs pb-2' htmlFor="">FirstName</label>
               <input
                 type="text"
-                value={updateProfile?.firstName}
+                value={updateProfile?.firstName || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, firstName: e.target.value })
                 }}
@@ -91,7 +91,7 @@ function EditProfile(){
               <label className='block text-zinc-400 text-xs pb-2' htmlFor="">lastName</label>
               <input
                 type="text"
-                value={updateProfile?.lastName}
+                value={updateProfile?.lastName || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, lastName: e.target.value })
                 }}
@@ -104,7 +104,7 @@ function EditProfile(){
               <label className='block text-zinc-400 text-xs pb-2' htmlFor="">Gender</label>
               <input
                 type="text"
-                value={updateProfile?.gender}
+                value={updateProfile?.gender || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, gender: e.target.value })
                 }}
@@ -122,7 +122,7 @@ function EditProfile(){
               <label className='block text-zinc-400 text-xs pb-2' htmlFor="">Skills</label>
               <input
                 type="text"
-                value={updateProfile?.skills?.join(",")}
+                value={updateProfile?.skills?.join(",") || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, skills: e?.target?.value?.split(",") })
                 }}
@@ -135,7 +135,7 @@ function EditProfile(){
               <label className='block text-zinc-400 text-xs pb-2' htmlFor="">location</label>
               <input
                 type="text"
-                value={updateProfile?.location}
+                value={updateProfile?.location || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, location: e.target.value })
                 }}
@@ -148,7 +148,7 @@ function EditProfile(){
               <label className='block text-zinc-400 text-xs pb-2' htmlFor="">Photo Url</label>
               <input
                 type="text"
-                value={updateProfile?.photoUrl}
+                value={updateProfile?.photoUrl || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, photoUrl: e.target.value })
                 }}
@@ -167,7 +167,7 @@ function EditProfile(){
               <textarea
                 rows="3"
                 type="text"
-                value={updateProfile?.bio}
+                value={updateProfile?.bio || ""}
                 onChange={(e) => {
                   return setUpdateProfile({ ...updateProfile, bio: e.target.value })
                 }}

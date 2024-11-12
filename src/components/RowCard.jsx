@@ -46,12 +46,12 @@ function RowCard({
             } className="px-4 py-1.5  text-white bg-primary text-xs rounded-md ">
               Accpeted
             </button>
-            <buttoN onClick={()=>{
+            <button onClick={()=>{
                 statusHandler("rejected",requestId)
             }} className="text-xs text-red-600 font-medium  rounded-md px-4 py-1.5 ">
 
               Rejected
-            </buttoN>
+            </button>
           </div>
         ) :  !isReviewRequest && (
             <Link to={`/profile/connection/${_id}`}

@@ -3,8 +3,10 @@ import axiosInstance from "../Utils/axiosInstances";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addNotificationList } from "../Utils/redux/notification";
+import timeAgo from "../Utils/helper";
 
 function Notification() {
+ 
   const notificationList = useSelector(store => store.notification);
   const dispatchHandler = useDispatch()
   const navigateHandler = useNavigate()
@@ -15,22 +17,28 @@ function Notification() {
   }
 
   async function getNotificationList() {
-    const responses = await axiosInstance.get("/api/v1/notifications");
+    try{
+      const responses = await axiosInstance.get("/api/v1/notifications");
+    
     dispatchHandler(addNotificationList(responses?.data?.data?.connectionRequestInfo))
+    }catch(err){
+      const errText =
+        err?.response?.data?.message ||
+        err.message ||
+        err?.response?.data?.statusText;
+    }
+    }
   }
 
 
 
   useEffect(() => {
+    
     getNotificationList();
   }, []);
 
   if(!notificationList)  return null;
-  if(!notificationList.length){
-    return <h3 className="font-satoshi text-white font-medium b">
-    Empty Notification
-  </h3>
-  }
+  
 
   return notificationList && (
     <>
@@ -44,16 +52,22 @@ function Notification() {
         </div>
         <div className="p-[1vw] max-w-lg">
 
-        {notificationList?.map((item, index) => (
-            <NotificationCard key={index} {...item} />
-          ))}
+        {
+          notificationList.length === 0 ? <h1 className="font-satoshi text-zinc-400   text-sm">No Notification Has Found</h1> : (
+            notificationList?.map((item, index) => (
+              <NotificationCard key={index} {...item} />
+            ))
+          )
+
+
+        }
         </div>
       </div>
     </>
   );
 }
 
-function NotificationCard({ fromUserId, toUserId, status }) {
+function NotificationCard({ fromUserId, toUserId, status,timeStampForRequest }) {
   return (
     <>
       <div className="p-[0.6vw] border-b-[1px] border-b-[#282828] ">
@@ -75,7 +89,7 @@ function NotificationCard({ fromUserId, toUserId, status }) {
                   ? `${toUserId?.firstName} has accepted your request`
                   : `${fromUserId?.firstName} has interested in you`}
               </small>
-              <p className="text-[#616161] text-xs">1 hour ago</p>
+              <p className="text-[#616161] text-xs">{timeAgo(timeStampForRequest)}</p>
             </div>
 
             

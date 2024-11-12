@@ -47,8 +47,8 @@ function Connection() {
         <div class="container mx-auto px-4 sm:px-8"></div>
 
         <div className="bg-[#232323] p-[1vw]  rounded-md  w-full">
-          {connectionList?.map((connection) => (
-            <RowCard {...connection} />
+          {connectionList?.map((connection , index) => (
+            <RowCard {...connection} key={connection?._id || index} />
           ))}
         </div>
       </div>
