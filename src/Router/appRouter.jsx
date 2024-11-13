@@ -21,7 +21,7 @@ const appRouter = createBrowserRouter([
         children: [
           {
             path: "/feed",
-            element:<h1>demo</h1>,
+            element:<Feed/>,
           },
           {
             path: "/feed/notification",
