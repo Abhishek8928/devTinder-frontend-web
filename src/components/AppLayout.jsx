@@ -13,6 +13,7 @@ function AppLayout() {
 
   const user = useSelector((store) => store.user);
 
+
   const getUserProfile = async () => {
     try {
       const response = await axiosInstance.get("/api/v1/profile/view");
@@ -21,6 +22,8 @@ function AppLayout() {
       if (err.status === 401) {
         navigateHandler("/login");
         dispatchHandler(logoutUser());
+      }else if(err?.code === 'ERR_NETWORK'){
+        console.log("network error")
       }
     }
   };

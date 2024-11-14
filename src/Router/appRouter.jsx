@@ -8,6 +8,7 @@ import Notification from "../components/Notification";
 import EditProfile from "../components/EditProfile";
 import Request from "../components/Request";
 import ConnectionProfile from "../components/ConnectionProfile";
+import Middleware from "../components/middleware";
 
 // create a configuration for browser router to render the stuff accordding to path -> sap(single page application)
 const appRouter = createBrowserRouter([
@@ -20,20 +21,20 @@ const appRouter = createBrowserRouter([
         element: <Feed />,
         children: [
           {
-            path: "/feed",
-            element:<Feed/>,
-          },
-          {
             path: "/feed/notification",
-            element:<Notification />,
+            element: <Notification />,
           },
         ],
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <Middleware>
+            <Login />
+          </Middleware>
+        ),
       },
-      
+
       {
         path: "/connection",
         element: <Connection />,
@@ -41,26 +42,26 @@ const appRouter = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
-        children:[
+        children: [
           {
             path: "/profile/connection",
-            element:<Connection/>,
-            children:[
+            element: <Connection />,
+            children: [
               {
-                path:"/profile/connection/:userId",
-                element:<ConnectionProfile />
-              }
-            ]
+                path: "/profile/connection/:userId",
+                element: <ConnectionProfile />,
+              },
+            ],
           },
           {
             path: "/profile",
-            element:<EditProfile />,
+            element: <EditProfile />,
           },
           {
             path: "/profile/request",
-            element:<Request />,
-          }
-        ]
+            element: <Request />,
+          },
+        ],
       },
       {
         path: "*",
