@@ -8,8 +8,7 @@ import Notification from "../components/Notification";
 import EditProfile from "../components/EditProfile";
 import Request from "../components/Request";
 import ConnectionProfile from "../components/ConnectionProfile";
-import Middleware from "../components/middleware";
-
+import Middleware from "../components/Middleware";
 // create a configuration for browser router to render the stuff accordding to path -> sap(single page application)
 const appRouter = createBrowserRouter([
   {
